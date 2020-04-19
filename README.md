@@ -1,8 +1,8 @@
 ## Miscroscopy Image Restoration using Deep learning on W2S
-by Martin Chatton, part of a master semester project as IVRL, EPFL, Switzerland, supervised by Ruofan Zhou and Majed El Helou
+by Martin Chatton, part of a master semester project as IVRL, EPFL, Switzerland, supervised by Ruofan Zhou and Majed El Helou.
 
 
-This repository provides an inference interface for joint denoising and super-resolution on grayscale microscopy images, as well as the codes samples used for training. To view and download the dataset, please refer to [W2S](https://github.com/widefield2sim/w2s)
+This repository provides an inference interface for joint denoising and super-resolution on grayscale microscopy images, as well as the codes samples used for training. To view and download the dataset, please refer to [W2S](https://github.com/widefield2sim/w2s).
 
 ## Abstract
 We leverage deep learning techniques to jointly denoise and super-resolve biomedical images acquired with fluorescence microscopy. We develop a deep learning algorithm based on the networks and method described in the recent W2S paper to solve a joint denoising and super-resolution problem. Specifically, we address the restoration of SIM images from widefield images. Our TensorFlow model is trained on the W2S dataset of cell images. On test images, the model shows a visually-convincing denoising and increases the resolution by a factor of two compared to the input image. For a 512 x 512 image, the inference takes less than 1 second on a Titan X GPU and about 15 seconds on a common CPU. We further present the results of different variations of losses used in training.
@@ -19,7 +19,7 @@ We leverage deep learning techniques to jointly denoise and super-resolve biomed
 
 1. Place your widefield low-resolution images in the `./experiments/input` folder.
 2. Execute the `infer.py` script at repository root (`python3 infer.py`).
-3. The script will automatically apply denoising and 2x super-resolution on all images in the input folder and save the results in the `./experiments/output` folder. You can expect a running time of 2 seconds per image if Tensorflow runs on a GPU and 15-30 seconds per image on a CPU for a ~500x500 pixels image
+3. The script will automatically apply denoising and 2x super-resolution on all images in the input folder and save the results in the `./experiments/output` folder. You can expect a running time of 2 seconds per image if TensorFlow runs on a GPU and 15-30 seconds per image on a CPU for a ~500x500 pixels image.
 
 ### How it works
 
@@ -55,7 +55,7 @@ Note: The training process is computationally very demanding. Please make sure y
 
 1. Place your low-resolution validation images in the folder specified by `validation:dataroot_LR` in the config file and the corresponding high-resolution images in the folder specified in `validation:dataroot_HR`. The image pairs need to have the same names to be matched correctly.
 2. Execute the `validate.py` script at repository root (`python3 validate.py -opt path_to_option_file.yml`).
-3. The script will automatically apply denoising and 2x super-resolution on all images in the validation LR folder and save the result images in the folder specified by `validation:results_dir`, and corresponding validation plots with PSNR and SSIM values in the folder specified by `validation:plots_dir`. You can expect a running time of 2 seconds per image if Tensorflow runs on a GPU and 15-30 seconds per image on a CPU
+3. The script will automatically apply denoising and 2x super-resolution on all images in the validation LR folder and save the result images in the folder specified by `validation:results_dir`, and corresponding validation plots with PSNR and SSIM values in the folder specified by `validation:plots_dir`. You can expect a running time of 2 seconds per image if TensorFlow runs on a GPU and 15-30 seconds per image on a CPU for a ~500x500 pixels image.
 
 ### Code structure
 
