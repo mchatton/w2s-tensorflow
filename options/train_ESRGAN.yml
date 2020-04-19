@@ -1,0 +1,80 @@
+#### general settings
+name: RRDB
+model: esrgan
+gpu_ids: [0,1] # Ids of the GPUs to use
+
+#### datasets
+datasets:
+  train:
+    dataroot_HR: ./datasets/full/HR/    # Training HR images folder
+    dataroot_LR: ./datasets/full/LR/    # Training LR images folder
+    batch_size: 8       # Batch size for training (lower this value if you do not have a lot of VRAM)
+    n_images: 240       # Number of images in the training folder
+    HR_size: 1024       # Size of HR images in pixels (needs to be LR_size*2)
+    LR_size: 512        # Size of LR images in pixels (needs to be HR_size/2)
+    HR_patch_size: 128  # High resolution patch size (needs to be LR_size*2)
+    LR_patch_size: 64   # Low resolution patch size (needs to be HR_size/2)
+    HR_stride: 64       # Stride for building HR patches (default: 50% of the patch_size)
+    LR_stride: 32       # Stride for building LR patches (default: 50% of the patch_size)
+    use_flip: true      # Whether to use flip transforms
+    use_rot: true       # Whether to use 90° rotation transforms
+    color_channels: 1   # Number of color channels (only 1 (grayscale) is supported)
+  validation:
+    dataroot_HR: ./datasets/validation/full/HR/         # Validation HR images folder
+    dataroot_LR: ./datasets/validation/full/LR/         # Validation LR images folder
+    results_dir: ./datasets/validation/full/results/    # Validation result images folder
+    plots_dir: ./datasets/validation/full/plots/        # Validation plots folder
+  inference:
+    dataroot: ./experiments/input/      # Inference input folder
+    results_dir: ./experiments/results/ # Inference output folder
+
+#### network structures
+network_G:
+  which_model_G: RRDBNet    # Type of generator (only RRDBNet is currently supported)
+  in_nc: 1                  # Number of input channels (only 1 (grayscale) is supported)
+  out_nc: 1                 # Number of output channels (only 1 (grayscale) is supported)
+  nf: 64                    # Number of filters convolutional layers
+  gc: 32                    # Number of filters for the inner convolutional layers of residual blocks
+  nb: 23                    # Number of RRDB blocks in the network (lower this value to reduce training time)
+  activation_leak: 0.2      # Leak parameter for the leaky-ReLU activation units
+  residual_scaling: 0.2     # Scaling parameter for shortcut paths in residual learning
+  initializer: MSRA         # Kernel initializer for the generator (MSRA or keras default)
+  initializer_scaling: 0.1  # Additional scaling parameter is MSRA initialization is used
+network_D:
+  which_model_D: RaDNet     # Type of discriminator (only Relativistic average Discriminator (RaDNet) is supported)
+  in_nc: 1                  # Number of input channels (only 1 (grayscale) is supported)
+  nf: 64                    # Number of filters convolutional layers
+
+#### path
+path:
+  checkpoint_root: ./experiments/checkpoints/                       # Folder for generator training checkpoints
+  checkpoint_root_disc: ./experiments/checkpoints_disc/             # Folder for discriminator training checkpoints
+  checkpoint_name_pretrain: RRDB_PSNR                               # Name of the pretraining generator checkpoint
+  checkpoint_name_train: RRDB_GAN                                   # Name of the training generator checkpoint
+  checkpoint_name_disc: VGG                                         # Name of the discriminator checkpoints
+  pretrained_model_G: ./experiments/pretrained_models/RRDB_PSNR.h5  # Output name and location  of the pretrained generaor
+  trained_model_G: ./experiments/pretrained_models/RRDB_GAN.h5      # Output name and location  of the trained generaor
+  resume: true                                                      # Whether to allow resuming training from checkpoints
+
+#### training settings: learning rate scheme, loss
+train:
+  n_epochs: 50              # Number of epochs for training
+  
+  lr_G: !!float 1e-4        # Learning rate for the generator
+  optimizer: Adam           # Optimizer for the optimizer (only Adam supported)
+  use_amsgrad: true         # Whether to use AMSGrad modification when Adam is used
+  beta1_G: 0.9              # First parameter of the optimizer for generator
+  beta2_G: 0.99             # Second parameter of the optimizer for generator
+  lr_D: !!float 1e-4        # Learning rate of the discriminator
+  beta1_D: 0.9              # First parameter of the optimizer for discriminator
+  beta2_D: 0.99             # Second parameter of the optimizer for discriminator
+  lr_gamma: 0.5             # Decay coefficient for the learning rate
+  
+  pixel_criterion: l1           # Criterion for pixel-wise loss
+  pixel_weight: !!float 1e-2    # Weight of pixel-wise loss
+  feature_model: VGG19          # Pretrained model used for perceptual loss (only VGG19 supported)
+  feature_layer: block3_conv4   # Name of the layer from which to extract the feature map
+  feature_criterion: l1         # Criterion for perceptual loss
+  feature_weight: !!float 1e-2  # Weight of perceptual loss
+  use_gram: false               # Whether to use texture loss (as defined in EnhanceNet) instead of perceptual loss
+  gan_weight: !!float 1         # Weight of the adversarial loss
