@@ -28,7 +28,7 @@ The inference process uses a model (located at `./experiments/pretrained_models/
 ## Training
 
 If you want to train your own network on your images, this section explains how to use this repository.
-Note: The training process is computationally very demanding. Please make sure you have GPUS with sufficient VRAM. If not, try reducing the size of the generator (`network_G:nb` field in the options file), the batch size (`train:batch_size` field in the options file) or the patch size (`train:HR_patch_size` and `train:LR_patch_size` fields in the options file)
+Note: The training process is computationally very demanding. Please make sure you have GPUS with sufficient VRAM. If not, try reducing the size of the generator (`network_G:nb` field in the options file), the batch size (`train:batch_size` field in the options file) or the patch size (`train:HR_patch_size` and `train:LR_patch_size` fields in the options file).
 
 ### Dependencies
 - Python 3
