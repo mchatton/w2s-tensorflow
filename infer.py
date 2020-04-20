@@ -7,8 +7,6 @@ import numpy as np
 import tensorflow as tf
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '1'
-
-from options.options import parse
     
 def decode_img_from_path(file_path):
     """
