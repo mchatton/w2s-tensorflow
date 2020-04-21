@@ -17,7 +17,7 @@ We leverage deep learning techniques to jointly denoise and super-resolve biomed
 
 ### How to use
 
-1. Place your widefield low-resolution images in the `./experiments/input` folder.
+1. Place your widefield low-resolution images in PNG format in the `./experiments/input` folder.
 2. Execute the `infer.py` script at repository root (`python3 infer.py`).
 3. The script will automatically apply denoising and 2x super-resolution on all images in the input folder and save the results in the `./experiments/output` folder. You can expect a running time of 2 seconds per image if TensorFlow runs on a GPU and 15-30 seconds per image on a CPU for a ~500x500 pixels image.
 
@@ -44,7 +44,7 @@ Note: The training process is computationally very demanding. Please make sure y
 #### Training
 
 1. Open the `./options/train_ESRGAN.yml` config file and fill the fields with your training configuration, or create your own.
-2. Place your low resolution images in the folder specified by `train:dataroot_LR` in the config file and the corresponding high-resolution images in the folder specified in `train:dataroot_HR`. The image pairs need to have the same names to be matched correctly, and need to be of square size.
+2. Place your low resolution images in PNG format in the folder specified by `train:dataroot_LR` in the config file and the corresponding high-resolution images in PNG format in the folder specified in `train:dataroot_HR`. The image pairs need to have the same names to be matched correctly, and need to be of square size.
 3. Execute the `pretrain.py` script at repository root (`python3 pretrain.py -opt path_to_option_file.yml`).
 4. The pretraining will output a pretrained model in the `.h5` format at the location specified with the name and location specified in the `pretrained_model_G` field.
 3. Execute the `train.py` script at repository root (`python3 train.py -opt path_to_option_file.yml`).
