@@ -4,7 +4,17 @@ by Martin Chatton, part of a Master semester project at [IVRL](https://www.epfl.
 
 This repository provides an inference interface for joint denoising and super-resolution on grayscale microscopy images, as well as the code used for training. To view and download the dataset, please refer to:
 
-[**W2S: A Joint Denoising and Super-Resolution Dataset**](https://github.com/widefield2sim/w2s) (PyTorch code)
+[**W2S: A Joint Denoising and Super-Resolution Dataset**](https://github.com/widefield2sim/w2s) (original data and PyTorch code)
+
+```bibtex
+@inproceedings{zhou2020w2s,
+    title     = {{W2S}: Microscopy Data with Joint Denoising and Super-Resolution for Widefield to {SIM} Mapping},
+    author    = {Zhou, Ruofan and El Helou, Majed and Sage, Daniel and Laroche, Thierry and Seitz, Arne and S{\"u}sstrunk, Sabine},
+    booktitle = {ECCVW},
+    year      = {2020}
+}
+```
+
 
 ### [Full Report](https://arxiv.org/pdf/2004.10884.pdf)
 > **Abstact:** *We leverage deep learning techniques to jointly denoise and super-resolve biomedical images acquired with fluorescence microscopy. We develop a deep learning algorithm based on the networks and method described in the recent W2S paper to solve a joint denoising and super-resolution problem. Specifically, we address the restoration of SIM images from widefield images. Our TensorFlow model is trained on the W2S dataset of cell images. On test images, the model shows a visually-convincing denoising and increases the resolution by a factor of two compared to the input image. For a 512 x 512 image, the inference takes less than 1 second on a Titan X GPU and about 15 seconds on a common CPU. We further present the results of different variations of losses used in training.*
