@@ -4,7 +4,7 @@ by Martin Chatton, part of a Master semester project at [IVRL](https://www.epfl.
 
 This repository provides an inference interface for joint denoising and super-resolution on grayscale microscopy images, as well as the code used for training. To view and download the dataset, please refer to:
 
-[**W2S: A Joint Denoising and Super-Resolution Dataset**](https://github.com/widefield2sim/w2s) (original data and PyTorch code)
+[**W2S: A Joint Denoising and Super-Resolution Dataset**](https://github.com/IVRL/w2s) (original data and PyTorch code)
 
 ```bibtex
 @inproceedings{zhou2020w2s,
